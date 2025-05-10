@@ -8,7 +8,7 @@ spring:
         name: customer-costs-analytics
         username: dev
         password: dev
-        url: 'jdbc:postgresql://db-host:5432/customer-costs-analytics'
+        url: 'jdbc:postgresql://customer-costs-analytics-pg:5432/customer-costs-analytics'
         hikari:
             maximum-pool-size: 40
             connection-timeout: 2000
