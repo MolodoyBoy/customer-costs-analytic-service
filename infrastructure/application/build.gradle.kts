@@ -34,7 +34,7 @@ jib {
 
     to {
         val imageVersion: Provider<String> = providers
-            .environmentVariable("IMAGE_TAG")
+            .environmentVariable("IMAGE_VERSION")
             .orElse("latest")
 
         image = "molodoyboy777/customer-costs-analytics-service:${imageVersion}"
