@@ -44,4 +44,4 @@ jobs:
             -   name: Publish OpenAPI to GitHub Packages
                 env:
                     GPR_TOKEN: ${{ secrets.PACKAGE_PUBLISH_TOKEN }}
-                run: ./gradlew publish -Dgpr.password=$GPR_TOKEN
+                run: ./gradlew publish
