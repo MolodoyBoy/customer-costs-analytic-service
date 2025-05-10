@@ -2,10 +2,16 @@ plugins {
     id("java")
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-        vendor = JvmVendorSpec.ADOPTIUM
+subprojects {
+    apply(plugin = "java")
+
+    group = "com.oleg.customercostsanalytics"
+
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(21))
+            vendor = JvmVendorSpec.ADOPTIUM
+        }
     }
 }
 

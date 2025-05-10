@@ -10,6 +10,13 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(project(":infrastructure:rest-api"))
+    implementation(project(":infrastructure:rest-api:ccas-openapi"))
+    implementation(project(":integration:customer-costs-analytics-kafka"))
+    implementation(project(":integration:customer-costs-analytics-reload"))
+    implementation(project(":integration:customer-costs-analytics-database"))
+
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     implementation(libs.bundles.jooq)
@@ -26,7 +33,7 @@ springBoot {
 
 val dockerHubUsername: String by project
 val dockerHubPassword: String by project
-val imageVersion = System.getenv("IMAGE_VERSION")
+val imageVersion = System.getenv().getOrDefault("IMAGE_VERSION", "")
 
 jib {
     from {

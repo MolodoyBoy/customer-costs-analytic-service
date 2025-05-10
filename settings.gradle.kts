@@ -106,6 +106,7 @@ include("infrastructure")
 include("infrastructure:rest-api")
 include("infrastructure:application")
 
+include("infrastructure:rest-api:ccas-openapi")
 include("integration:customer-costs-analytics-kafka")
 include("integration:customer-costs-analytics-reload")
 include("integration:customer-costs-analytics-database")

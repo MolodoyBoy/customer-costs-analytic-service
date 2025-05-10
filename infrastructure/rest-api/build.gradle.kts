@@ -14,9 +14,6 @@ dependencies {
 
     implementation(libs.bundles.swagger)
     implementation("org.springframework.boot:spring-boot-starter-web")
-
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
 sourceSets {
@@ -31,7 +28,7 @@ sourceSets {
 }
 
 openApiGenerate {
-    inputSpec.set("$projectDir/src/main/resources/openapi/openapi.yaml")
+    inputSpec.set("$projectDir/ccas-openapi/src/main/resources/openapi.yaml")
 
     generatorName.set("spring")
     library.set("spring-boot")
