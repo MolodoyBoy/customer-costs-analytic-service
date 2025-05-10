@@ -32,7 +32,7 @@ springBoot {
 }
 
 val dockerHubUsername: String by project
-val dockerHubPassword: String by project
+val dockerHubPassword = System.getenv("DOCKER_HUB_PASSWORD")
 val imageVersion = System.getenv().getOrDefault("IMAGE_VERSION", "")
 
 jib {

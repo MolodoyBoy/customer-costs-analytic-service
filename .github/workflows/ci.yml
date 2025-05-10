@@ -24,6 +24,7 @@ jobs:
             - name: Build & Push with Jib
               env:
                   IMAGE_VERSION: ${{ github.sha }}
+                  DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
               run: ./gradlew jib
     library_publish:
         name: Build and Push OpenApi Library
