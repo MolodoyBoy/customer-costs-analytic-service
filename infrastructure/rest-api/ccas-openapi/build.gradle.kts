@@ -7,7 +7,6 @@ val customerCostsAnalyticOpenApi: String by project
 version = customerCostsAnalyticOpenApi
 
 val gitHubUsername: String by project
-val gitHubPassword: String by project
 
 publishing {
     publications {
@@ -27,7 +26,6 @@ publishing {
 
             credentials {
                 username = gitHubUsername
-                password = gitHubPassword
             }
         }
     }
