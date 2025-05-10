@@ -7,6 +7,7 @@ val customerCostsAnalyticOpenApi: String by project
 version = customerCostsAnalyticOpenApi
 
 val gitHubUsername: String by project
+val gitHubToken = System.getenv("GPR_TOKEN")
 
 publishing {
     publications {
@@ -26,6 +27,7 @@ publishing {
 
             credentials {
                 username = gitHubUsername
+                password = gitHubToken
             }
         }
     }
