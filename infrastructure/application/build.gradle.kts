@@ -24,7 +24,6 @@ springBoot {
     buildInfo()
 }
 
-val imageVersion: String by project
 val dockerHubUsername: String by project
 val dockerHubPassword: String by project
 
@@ -34,6 +33,10 @@ jib {
     }
 
     to {
+        val imageVersion: Provider<String> = providers
+            .environmentVariable("IMAGE_TAG")
+            .orElse("latest")
+
         image = "molodoyboy777/customer-costs-analytics-service:${imageVersion}"
 
         auth {
