@@ -43,6 +43,7 @@ jobs:
                     distribution: temurin
                     java-version: "21"
             -   name: Publish OpenAPI to GitHub Packages
+                continue-on-error: true
                 env:
                     GPR_TOKEN: ${{ secrets.PACKAGE_PUBLISH_TOKEN }}
                 run: ./gradlew publish
