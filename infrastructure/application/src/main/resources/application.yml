@@ -1,0 +1,23 @@
+spring:
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher
+    application:
+        name: 'customer-costs-analytic-service'
+    datasource:
+        name: customer-costs-analytics
+        username: dev
+        password: dev
+        url: 'jdbc:postgresql://db-host:5432/customer-costs-analytics'
+        hikari:
+            maximum-pool-size: 40
+            connection-timeout: 2000
+    flyway:
+        out-of-order: true
+        clean-disabled: true
+        ignore-migration-patterns:
+            - '*:missing'
+            - '*:future'
+springdoc:
+    swagger-ui:
+        path: /swagger-ui.html

@@ -1,0 +1,11 @@
+type: object
+properties:
+    periodCostsAnalytics:
+        $ref: 'PeriodCostsAnalytics.yaml'
+    categorizedCostsAnalytics:
+        type: array
+        items:
+            $ref: '../category/CategorizedCostsAnalytics.yaml'
+required:
+    - periodCostsAnalytics
+    - categorizedCostsAnalytics
