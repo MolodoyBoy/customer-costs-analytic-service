@@ -1,4 +1,3 @@
-
 pluginManagement {
     repositories {
         mavenCentral()
@@ -32,17 +31,14 @@ dependencyResolutionManagement {
             library("flywayPostgres","org.flywaydb:flyway-database-postgresql:10.14.0")
 
             library("springContext", "org.springframework", "spring-context").withoutVersion()
+            library("springAutoConfigure", "org.springframework", "spring-boot-autoconfigure").withoutVersion()
             library("springWeb", "org.springframework", "spring-web").withoutVersion()
             library("springBootWeb", "org.springframework.boot", "spring-boot-starter-web").withoutVersion()
             library("springBootActuator", "org.springframework.boot", "spring-boot-starter-actuator").withoutVersion()
             library("springBootJdbc", "org.springframework.boot", "spring-boot-starter-jdbc").withoutVersion()
             library("springSecurity", "org.springframework.boot", "spring-boot-starter-security").withoutVersion()
             library("springBootStarter", "org.springframework.boot", "spring-boot-starter").withoutVersion()
-            library("micrometer", "io.micrometer", "micrometer-registry-prometheus").withoutVersion()
-            library("awaitility", "org.awaitility", "awaitility").withoutVersion()
-            library("springBootAdmin", "de.codecentric:spring-boot-admin-starter-client:3.2.2")
             library("springKafka", "org.springframework.kafka", "spring-kafka").withoutVersion()
-            library("kafkaAvroSerializer", "io.confluent:kafka-avro-serializer:7.6.0")
             library("javax", "javax.annotation:javax.annotation-api:1.3.2")
 
             library("jooqCodegen", "org.jooq:jooq-codegen:3.19.9")

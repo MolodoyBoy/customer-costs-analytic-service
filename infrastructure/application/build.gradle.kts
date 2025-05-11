@@ -17,10 +17,11 @@ dependencies {
     implementation(project(":integration:customer-costs-analytics-reload"))
     implementation(project(":integration:customer-costs-analytics-database"))
 
-    implementation("org.springframework.boot:spring-boot-starter-web")
-
+    implementation(libs.springKafka)
     implementation(libs.bundles.jooq)
+    implementation(libs.springBootWeb)
     implementation(libs.springBootJdbc)
+    implementation(libs.springBootStarter)
 }
 
 tasks.jar {

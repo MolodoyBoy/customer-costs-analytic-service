@@ -1,3 +1,8 @@
+server:
+    port: 8080
+    shutdown: graceful
+    max-http-request-header-size: 2MB
+
 spring:
     mvc:
         pathmatch:
@@ -12,6 +17,40 @@ spring:
         hikari:
             maximum-pool-size: 40
             connection-timeout: 2000
+    kafka:
+        consumer:
+            auto-offset-reset: earliest
+            max-poll-records: 100
+            properties:
+                sasl:
+                    mechanism: PLAIN
+                allow:
+                    auto:
+                        create:
+                            topics: false
+            enable-auto-commit: false
+
+        bootstrap-servers: mock
+        properties:
+            avro:
+                remove:
+                    java:
+                        properties: true
+            specific:
+                avro:
+                    reader: true
+            schema:
+                registry:
+                    url: mock
+            auto:
+                register:
+                    schemas: false
+            sasl:
+                mechanism: PLAIN
+                jaas:
+                    config: "org.apache.kafka.common.security.plain.PlainLoginModule required username='${oleg.kafka.api.key}' password='${oleg.kafka.api.secret}';"
+            security:
+                protocol: SASL_SSL
     flyway:
         out-of-order: true
         clean-disabled: true
@@ -21,3 +60,11 @@ spring:
 springdoc:
     swagger-ui:
         path: /swagger-ui.html
+oleg:
+    kafka:
+        customer-costs:
+            id: customer-costs
+            topic: public.customer-costs.v1
+            consumer:
+                group:
+                    id: analytics.customer-costs.v1

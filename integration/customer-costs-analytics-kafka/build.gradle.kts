@@ -9,11 +9,11 @@ repositories {
 }
 
 dependencies {
-    implementation(libs.flywayCore)
-    implementation(libs.postrgesql)
-    implementation(libs.bundles.jooq)
-    implementation(libs.flywayPostgres)
-    implementation(libs.springBootJdbc)
+    implementation(project(":domain"))
+    implementation(project(":integration:customer-costs-analytics-reload"))
+
+    implementation(libs.springKafka)
+    implementation(libs.springAutoConfigure)
 }
 
 

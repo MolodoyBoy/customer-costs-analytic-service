@@ -23,7 +23,7 @@ buildscript {
 
     dependencies {
         val springBootVersion: String by project
-        classpath((platform("org.springframework.boot:spring-boot-dependencies:3.4.5")))
+        classpath((platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")))
 
         classpath(libs.postrgesql)
         classpath(testLibs.bundles.testContainers)

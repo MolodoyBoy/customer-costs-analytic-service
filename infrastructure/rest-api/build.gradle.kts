@@ -12,8 +12,8 @@ repositories {
 dependencies {
     implementation(project(":domain"))
 
+    implementation(libs.springBootWeb)
     implementation(libs.bundles.swagger)
-    implementation("org.springframework.boot:spring-boot-starter-web")
 }
 
 sourceSets {
