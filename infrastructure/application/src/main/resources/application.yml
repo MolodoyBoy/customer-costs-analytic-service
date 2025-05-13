@@ -11,8 +11,8 @@ spring:
         name: 'customer-costs-analytic-service'
     datasource:
         name: customer-costs-analytics
-        username: dev
-        password: dev
+        username: ${DB_USER}
+        password: ${DB_USER}
         url: 'jdbc:postgresql://customer-costs-analytics-pg:5432/customer-costs-analytics'
         hikari:
             maximum-pool-size: 40
@@ -21,36 +21,8 @@ spring:
         consumer:
             auto-offset-reset: earliest
             max-poll-records: 100
-            properties:
-                sasl:
-                    mechanism: PLAIN
-                allow:
-                    auto:
-                        create:
-                            topics: false
-            enable-auto-commit: false
 
-        bootstrap-servers: mock
-        properties:
-            avro:
-                remove:
-                    java:
-                        properties: true
-            specific:
-                avro:
-                    reader: true
-            schema:
-                registry:
-                    url: mock
-            auto:
-                register:
-                    schemas: false
-            sasl:
-                mechanism: PLAIN
-                jaas:
-                    config: "org.apache.kafka.common.security.plain.PlainLoginModule required username='${oleg.kafka.api.key}' password='${oleg.kafka.api.secret}';"
-            security:
-                protocol: SASL_SSL
+        bootstrap-servers: customer-costs-kafka:9092
     flyway:
         out-of-order: true
         clean-disabled: true
