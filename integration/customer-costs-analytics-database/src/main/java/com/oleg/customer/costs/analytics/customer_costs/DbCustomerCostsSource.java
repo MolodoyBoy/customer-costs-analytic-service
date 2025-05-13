@@ -1,8 +1,10 @@
 package com.oleg.customer.costs.analytics.customer_costs;
 
 import com.oleg.customer.costs.analytics.common.value_object.Paginator;
+import com.oleg.customer.costs.analytics.customer_costs.command.CreateCustomerCostsCommand;
 import com.oleg.customer.costs.analytics.customer_costs.mapper.CustomerCostsByCategoryMapper;
 import com.oleg.customer.costs.analytics.customer_costs.entity.CustomerCosts;
+import com.oleg.customer.costs.analytics.customer_costs.mapper.CustomerCostsQueryMapper;
 import com.oleg.customer.costs.analytics.customer_costs.mapper.CustomerCostsRecordMapper;
 import com.oleg.customer.costs.analytics.customer_costs.query.CustomerCostsQuery;
 import com.oleg.customer.costs.analytics.customer_costs.source.AdminCustomerCostsSource;
@@ -20,23 +22,18 @@ import static com.oleg.fund.customer.costs.analytics.tables.CustomerCostsByCateg
 class DbCustomerCostsSource implements GetCustomerCosts, AdminCustomerCostsSource {
 
     private final DSLContext dslContext;
+    private final CustomerCostsQueryMapper customerCostsQueryMapper;
     private final CustomerCostsRecordMapper customerCostsRecordMapper;
     private final CustomerCostsByCategoryMapper customerCostsByCategoryMapper;
 
     public DbCustomerCostsSource(DSLContext dslContext,
+                                 CustomerCostsQueryMapper customerCostsQueryMapper,
                                  CustomerCostsRecordMapper customerCostsRecordMapper,
                                  CustomerCostsByCategoryMapper customerCostsByCategoryMapper) {
         this.dslContext = dslContext;
+        this.customerCostsQueryMapper = customerCostsQueryMapper;
         this.customerCostsRecordMapper = customerCostsRecordMapper;
         this.customerCostsByCategoryMapper = customerCostsByCategoryMapper;
-    }
-
-    @Override
-    public int insert(Collection<CustomerCosts> customerCosts) {
-        return dslContext.insertInto(CUSTOMER_COSTS)
-            .set(customerCostsRecordMapper.toRecords(customerCosts))
-            .onConflictDoNothing()
-            .execute();
     }
 
     @Override
@@ -46,6 +43,14 @@ class DbCustomerCostsSource implements GetCustomerCosts, AdminCustomerCostsSourc
         dslContext.insertInto(CUSTOMER_COSTS_BY_CATEGORY)
             .set(customerCostsByCategoryMapper.toRecords(customerCosts))
             .execute();
+    }
+
+    @Override
+    public List<CustomerCosts> insert(Collection<CreateCustomerCostsCommand> commands) {
+        return dslContext.insertInto(CUSTOMER_COSTS)
+            .set(customerCostsRecordMapper.toRecords(commands))
+            .returning()
+            .fetch(customerCostsRecordMapper);
     }
 
     @Override
@@ -61,6 +66,6 @@ class DbCustomerCostsSource implements GetCustomerCosts, AdminCustomerCostsSourc
             .orderBy(CUSTOMER_COSTS.CREATED_AT.desc())
             .offset(paginator.skip())
             .limit(paginator.limit())
-            .fetch(customerCostsRecordMapper);
+            .fetch(customerCostsQueryMapper);
     }
 }

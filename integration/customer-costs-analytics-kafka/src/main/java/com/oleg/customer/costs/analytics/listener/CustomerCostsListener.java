@@ -1,7 +1,7 @@
 package com.oleg.customer.costs.analytics.listener;
 
 import com.oleg.customer.costs.analytics.core.Publisher;
-import com.oleg.customer.costs.analytics.customer_costs.entity.CustomerCosts;
+import com.oleg.customer.costs.analytics.customer_costs.command.CreateCustomerCostsCommand;
 import com.oleg.customer.costs.analytics.customer_costs.message.CustomerCostsMessage;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -28,8 +28,8 @@ class CustomerCostsListener {
         batch = "true",
         containerFactory = "customerCostsListenerFactory"
     )
-    public void listenCustomerCosts(@Payload ConsumerRecords<Integer, CustomerCosts> consumerRecords) {
-        List<CustomerCosts> customerCosts = new ArrayList<>(consumerRecords.count());
+    public void listenCustomerCosts(@Payload ConsumerRecords<Integer, CreateCustomerCostsCommand> consumerRecords) {
+        List<CreateCustomerCostsCommand> customerCosts = new ArrayList<>(consumerRecords.count());
 
         consumerRecords.forEach(c -> customerCosts.add(c.value()));
 

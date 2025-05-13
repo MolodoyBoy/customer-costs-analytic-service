@@ -20,7 +20,6 @@ public class DbConfig {
         return new DataSourceConnectionProvider(dataSourceProxy);
     }
 
-
     @Bean
     public DSLContext benchmarkDslContext(DataSourceConnectionProvider dataSourceConnectionProvider) {
         return using(dataSourceConnectionProvider, POSTGRES);

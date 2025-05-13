@@ -1,7 +1,7 @@
 package com.oleg.customer.costs.analytics.config;
 
-import com.oleg.customer.costs.analytics.customer_costs.entity.CustomerCosts;
-import com.oleg.customer.costs.analytics.deserializer.CustomerCostsDeserializer;
+import com.oleg.customer.costs.analytics.customer_costs.command.CreateCustomerCostsCommand;
+import com.oleg.customer.costs.analytics.deserializer.CreateCustomerCostsCommandDeserializer;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +13,7 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.KafkaListenerErrorHandler;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import java.util.Map;
 
@@ -33,12 +34,13 @@ public class KafkaConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<Integer, CustomerCosts> customerCostsListenerFactory(KafkaProperties kafkaProperties) {
+    public ConcurrentKafkaListenerContainerFactory<Integer, CreateCustomerCostsCommand> customerCostsListenerFactory(KafkaProperties kafkaProperties) {
         Map<String, Object> properties = kafkaProperties.buildConsumerProperties(null);
         properties.put(KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
-        properties.put(VALUE_DESERIALIZER_CLASS_CONFIG, CustomerCostsDeserializer.class);
+        properties.put(VALUE_DESERIALIZER_CLASS_CONFIG, CreateCustomerCostsCommandDeserializer.class);
+        properties.put(JsonDeserializer.TRUSTED_PACKAGES, "com.oleg.customer.costs.analytics.customer_costs.command");
 
-        ConcurrentKafkaListenerContainerFactory<Integer, CustomerCosts> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        ConcurrentKafkaListenerContainerFactory<Integer, CreateCustomerCostsCommand> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setBatchListener(true);
         factory.getContainerProperties().setAckMode(BATCH);
         factory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(properties));

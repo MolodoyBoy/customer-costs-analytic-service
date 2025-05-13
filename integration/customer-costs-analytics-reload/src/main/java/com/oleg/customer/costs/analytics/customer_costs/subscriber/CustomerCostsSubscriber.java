@@ -3,6 +3,7 @@ package com.oleg.customer.costs.analytics.customer_costs.subscriber;
 import com.oleg.customer.costs.analytics.core.Message;
 import com.oleg.customer.costs.analytics.core.Publisher;
 import com.oleg.customer.costs.analytics.core.Subscriber;
+import com.oleg.customer.costs.analytics.customer_costs.command.CreateCustomerCostsCommand;
 import com.oleg.customer.costs.analytics.customer_costs.entity.CustomerCosts;
 import com.oleg.customer.costs.analytics.customer_costs.message.CustomerCostsMessage;
 import com.oleg.customer.costs.analytics.customer_costs.source.AdminCustomerCostsSource;
@@ -34,11 +35,12 @@ class CustomerCostsSubscriber implements Subscriber {
     @Transactional
     public void onMessage(Message m) {
         if (m instanceof CustomerCostsMessage message) {
-            List<CustomerCosts> customerCosts = message.customerCosts();
+            List<CreateCustomerCostsCommand> commands = message.commands();
 
+            List<CustomerCosts> customerCosts = adminCustomerCostsSource.insert(commands);
             logger.info(
                 "Customer costs was inserted {}.",
-                adminCustomerCostsSource.insert(customerCosts)
+                customerCosts.size()
             );
 
             publisher.publishMessage(new PeriodCostsAnalyticsMessage(customerCosts));
