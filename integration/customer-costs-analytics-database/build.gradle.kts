@@ -5,15 +5,8 @@ import org.jooq.meta.jaxb.Target
 import org.testcontainers.containers.PostgreSQLContainer
 
 plugins {
-    id("java")
     id("nu.studer.jooq")
     id("org.flywaydb.flyway")
-    id("org.springframework.boot")
-    id("io.spring.dependency-management")
-}
-
-repositories {
-    mavenCentral()
 }
 
 buildscript {

@@ -1,16 +1,10 @@
 plugins {
-    id("java")
     id("org.openapi.generator")
-    id("org.springframework.boot")
-    id("io.spring.dependency-management")
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":infrastructure:rest-api:ccas-openapi"))
 
     implementation(libs.springBootWeb)
     implementation(libs.bundles.swagger)

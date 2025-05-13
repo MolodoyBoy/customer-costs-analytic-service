@@ -1,12 +1,14 @@
 plugins {
-    id("java")
     id("org.springframework.boot")
     id("com.google.cloud.tools.jib")
-    id("io.spring.dependency-management")
 }
 
-repositories {
-    mavenCentral()
+tasks.jar {
+    enabled = false
+}
+
+springBoot {
+    buildInfo()
 }
 
 dependencies {
@@ -22,14 +24,6 @@ dependencies {
     implementation(libs.springBootWeb)
     implementation(libs.springBootJdbc)
     implementation(libs.springBootStarter)
-}
-
-tasks.jar {
-    enabled = false
-}
-
-springBoot {
-    buildInfo()
 }
 
 val dockerHubUsername: String by project

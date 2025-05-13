@@ -5,16 +5,25 @@ plugins {
 subprojects {
     apply(plugin = "java")
 
-    group = "com.oleg.customercostsanalytics"
-
     java {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(21))
             vendor = JvmVendorSpec.ADOPTIUM
         }
     }
+
+    group = "com.oleg.customercostsanalytics"
+
+    val springBootVersion: String by project
+
+    if (name !in setOf("ccas-openapi")) {
+        dependencies {
+            implementation(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"))
+        }
+    }
 }
 
-repositories {
-    mavenCentral()
+tasks.named<Wrapper>("wrapper") {
+    gradleVersion = "8.6"
+    distributionType = Wrapper.DistributionType.ALL
 }

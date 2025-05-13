@@ -42,7 +42,7 @@ dependencyResolutionManagement {
             library("javax", "javax.annotation:javax.annotation-api:1.3.2")
 
             library("jooqCodegen", "org.jooq:jooq-codegen:3.19.9")
-            library("jooq.core", "org.jooq", "jooq").withoutVersion()
+            library("jooq.core", "org.jooq:jooq:3.19.9")
             library("jooq.extensions", "org.jooq:jooq-postgres-extensions:3.19.9")
             library("jakarta.xml", "jakarta.xml.bind:jakarta.xml.bind-api:4.0.0")
             bundle("jooq", listOf(
