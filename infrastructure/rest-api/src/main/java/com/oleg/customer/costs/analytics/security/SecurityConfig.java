@@ -42,6 +42,7 @@ public class SecurityConfig {
     @Bean
     @SuppressWarnings("java:S4502")
     public SecurityFilterChain filterChain(HttpSecurity http,
+                                           JwtDecoder jwtDecoder,
                                            JwtAuthenticationConverter jwtAuthenticationConverter) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(sm -> sm.sessionCreationPolicy(STATELESS))
@@ -49,9 +50,10 @@ public class SecurityConfig {
                 auth.anyRequest().authenticated()
             )
             .oauth2ResourceServer(r -> r
-                .jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(
-                    jwtAuthenticationConverter
-                ))
+                .jwt(jwtConfigurer -> jwtConfigurer
+                    .decoder(jwtDecoder)
+                    .jwtAuthenticationConverter(jwtAuthenticationConverter)
+                )
             ).build();
     }
 }
