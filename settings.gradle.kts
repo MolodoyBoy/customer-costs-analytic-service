@@ -37,6 +37,7 @@ dependencyResolutionManagement {
             library("springBootActuator", "org.springframework.boot", "spring-boot-starter-actuator").withoutVersion()
             library("springBootJdbc", "org.springframework.boot", "spring-boot-starter-jdbc").withoutVersion()
             library("springSecurity", "org.springframework.boot", "spring-boot-starter-security").withoutVersion()
+            library("springOauth2", "org.springframework.boot", "spring-boot-starter-oauth2-resource-server").withoutVersion()
             library("springBootStarter", "org.springframework.boot", "spring-boot-starter").withoutVersion()
             library("springKafka", "org.springframework.kafka", "spring-kafka").withoutVersion()
             library("javax", "javax.annotation:javax.annotation-api:1.3.2")

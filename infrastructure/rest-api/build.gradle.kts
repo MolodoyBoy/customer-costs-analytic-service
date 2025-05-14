@@ -6,7 +6,9 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":infrastructure:rest-api:ccas-openapi"))
 
+    implementation(libs.springOauth2)
     implementation(libs.springBootWeb)
+    implementation(libs.springSecurity)
     implementation(libs.bundles.swagger)
 }
 

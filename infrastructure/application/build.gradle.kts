@@ -21,6 +21,7 @@ dependencies {
 
     implementation(libs.springKafka)
     implementation(libs.bundles.jooq)
+    implementation(libs.springOauth2)
     implementation(libs.springBootWeb)
     implementation(libs.springBootJdbc)
     implementation(libs.springBootStarter)

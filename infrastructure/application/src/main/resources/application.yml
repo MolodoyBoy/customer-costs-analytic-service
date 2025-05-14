@@ -29,6 +29,12 @@ spring:
         ignore-migration-patterns:
             - '*:missing'
             - '*:future'
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    secret: "s3cr3tS!mmetr1cK3yForJWTs"
+
 springdoc:
     swagger-ui:
         path: /swagger-ui.html

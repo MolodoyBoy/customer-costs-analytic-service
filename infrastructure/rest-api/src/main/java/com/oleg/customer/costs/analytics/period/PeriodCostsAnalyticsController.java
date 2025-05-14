@@ -23,7 +23,7 @@ public class PeriodCostsAnalyticsController implements PeriodCostsAnalyticsApi {
 
     @Override
     public AnalyticPeriodsDto getAnalyticsPeriods() {
-        var analyticPeriods = periodCostsAnalyticsUseCase.get(1);
+        var analyticPeriods = periodCostsAnalyticsUseCase.get();
         return analyticPeriodConverter.convert(analyticPeriods);
     }
 

@@ -6,10 +6,11 @@ import com.oleg.customer.costs.analytics.period_costs.source.GetAnalyticPeriodSo
 import com.oleg.customer.costs.analytics.period_costs.source.GetPeriodCostsAnalyticsSource;
 import com.oleg.customer.costs.analytics.period_costs.query.AnalyticPeriodQuery;
 import com.oleg.customer.costs.analytics.period_costs.value_object.PeriodCostsAnalyticsWithCategories;
+import com.oleg.customer.costs.analytics.user.UserContext;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
+import java.util.List;
 
 import static com.oleg.customer.costs.analytics.categorized_costs.colum.CategorizedCostsAnalyticsColumn.*;
 
@@ -18,19 +19,23 @@ public class PeriodCostsAnalyticsUseCase {
 
     private static final int CATEGORIZED_COSTS_ANALYTICS_LIMIT = 5;
 
+    private final UserContext userContext;
     private final GetAnalyticPeriodSource getAnalyticPeriodSource;
     private final GetPeriodCostsAnalyticsSource getPeriodCostsAnalyticsSource;
     private final GetCategorizedCostsAnalyticsSource getCategorizedCostsAnalyticsSource;
 
-    public PeriodCostsAnalyticsUseCase(GetAnalyticPeriodSource getAnalyticPeriodSource,
+    public PeriodCostsAnalyticsUseCase(UserContext userContext,
+                                       GetAnalyticPeriodSource getAnalyticPeriodSource,
                                        GetPeriodCostsAnalyticsSource getPeriodCostsAnalyticsSource,
                                        GetCategorizedCostsAnalyticsSource getCategorizedCostsAnalyticsSource) {
+        this.userContext = userContext;
         this.getAnalyticPeriodSource = getAnalyticPeriodSource;
         this.getPeriodCostsAnalyticsSource = getPeriodCostsAnalyticsSource;
         this.getCategorizedCostsAnalyticsSource = getCategorizedCostsAnalyticsSource;
     }
 
-    public List<AnalyticPeriodQuery> get(int userId) {
+    public List<AnalyticPeriodQuery> get() {
+        int userId = userContext.id();
         List<AnalyticPeriodQuery> analyticPeriods = getAnalyticPeriodSource.getAnalyticPeriods(userId);
         if (analyticPeriods.isEmpty()) {
             throw new NotFoundException("No analytic periods found for user.");

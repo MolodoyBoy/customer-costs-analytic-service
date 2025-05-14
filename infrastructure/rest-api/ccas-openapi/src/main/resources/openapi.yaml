@@ -10,13 +10,3 @@ paths:
         $ref: 'paths/period/period_analytics.yaml'
     /categorized/{id}/costs/analytics/:
         $ref: 'paths/category/categorized_analytics.yaml'
-
-components:
-    securitySchemes:
-        UserIdAuth:
-            type: apiKey
-            in: header
-            name: X-User-Id
-
-security:
-    - UserIdAuth: []
