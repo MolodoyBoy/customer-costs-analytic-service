@@ -40,3 +40,8 @@ oleg:
             consumer:
                 group:
                     id: analytics.customer-costs.v1
+            costs-category:
+                id: costs-category
+                topic: public.costs-category.v1
+                group:
+                    id: analytics.customer-category.v1

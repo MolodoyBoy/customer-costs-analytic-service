@@ -1,6 +1,8 @@
 package com.oleg.customer.costs.analytics.config;
 
+import com.oleg.customer.costs.analytics.common.value_object.CostCategory;
 import com.oleg.customer.costs.analytics.customer_costs.command.CreateCustomerCostsCommand;
+import com.oleg.customer.costs.analytics.deserializer.CostCategoryDeserializer;
 import com.oleg.customer.costs.analytics.deserializer.CreateCustomerCostsCommandDeserializer;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
 import org.slf4j.Logger;
@@ -13,11 +15,11 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.KafkaListenerErrorHandler;
-import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import java.util.Map;
 
 import static org.springframework.kafka.listener.ContainerProperties.AckMode.BATCH;
+import static org.springframework.kafka.support.serializer.JsonDeserializer.TRUSTED_PACKAGES;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG;
 
@@ -38,9 +40,23 @@ public class KafkaConfig {
         Map<String, Object> properties = kafkaProperties.buildConsumerProperties(null);
         properties.put(KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
         properties.put(VALUE_DESERIALIZER_CLASS_CONFIG, CreateCustomerCostsCommandDeserializer.class);
-        properties.put(JsonDeserializer.TRUSTED_PACKAGES, "com.oleg.customer.costs.analytics.customer_costs.command");
+        properties.put(TRUSTED_PACKAGES, "com.oleg.customer.costs.analytics.customer_costs.command");
 
-        ConcurrentKafkaListenerContainerFactory<Integer, CreateCustomerCostsCommand> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        return containerFactory(properties);
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<Integer, CostCategory> costCategoryListenerFactory(KafkaProperties kafkaProperties) {
+        Map<String, Object> properties = kafkaProperties.buildConsumerProperties(null);
+        properties.put(KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
+        properties.put(VALUE_DESERIALIZER_CLASS_CONFIG, CostCategoryDeserializer.class);
+        properties.put(TRUSTED_PACKAGES, "com.oleg.customer.costs.analytics.common.value_object");
+
+        return containerFactory(properties);
+    }
+
+    private <K, V> ConcurrentKafkaListenerContainerFactory<K, V> containerFactory(Map<String, Object> properties) {
+        ConcurrentKafkaListenerContainerFactory<K, V> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setBatchListener(true);
         factory.getContainerProperties().setAckMode(BATCH);
         factory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(properties));
