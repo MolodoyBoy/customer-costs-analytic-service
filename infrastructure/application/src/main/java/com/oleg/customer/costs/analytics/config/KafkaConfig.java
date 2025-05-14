@@ -1,9 +1,9 @@
 package com.oleg.customer.costs.analytics.config;
 
-import com.oleg.customer.costs.analytics.common.value_object.CostCategory;
-import com.oleg.customer.costs.analytics.customer_costs.command.CreateCustomerCostsCommand;
 import com.oleg.customer.costs.analytics.deserializer.CostCategoryDeserializer;
-import com.oleg.customer.costs.analytics.deserializer.CreateCustomerCostsCommandDeserializer;
+import com.oleg.customer.costs.analytics.deserializer.CustomerCostsDeserializer;
+import com.oleg.customer.costs.data.CostCategoryData;
+import com.oleg.customer.costs.data.CustomerCostsData;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,21 +36,21 @@ public class KafkaConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<Integer, CreateCustomerCostsCommand> customerCostsListenerFactory(KafkaProperties kafkaProperties) {
+    public ConcurrentKafkaListenerContainerFactory<Integer, CustomerCostsData> customerCostsListenerFactory(KafkaProperties kafkaProperties) {
         Map<String, Object> properties = kafkaProperties.buildConsumerProperties(null);
         properties.put(KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
-        properties.put(VALUE_DESERIALIZER_CLASS_CONFIG, CreateCustomerCostsCommandDeserializer.class);
-        properties.put(TRUSTED_PACKAGES, "com.oleg.customer.costs.analytics.customer_costs.command");
+        properties.put(VALUE_DESERIALIZER_CLASS_CONFIG, CustomerCostsDeserializer.class);
+        properties.put(TRUSTED_PACKAGES, "com.oleg.customer.costs.data");
 
         return containerFactory(properties);
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<Integer, CostCategory> costCategoryListenerFactory(KafkaProperties kafkaProperties) {
+    public ConcurrentKafkaListenerContainerFactory<Integer, CostCategoryData> costCategoryListenerFactory(KafkaProperties kafkaProperties) {
         Map<String, Object> properties = kafkaProperties.buildConsumerProperties(null);
         properties.put(KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
         properties.put(VALUE_DESERIALIZER_CLASS_CONFIG, CostCategoryDeserializer.class);
-        properties.put(TRUSTED_PACKAGES, "com.oleg.customer.costs.analytics.common.value_object");
+        properties.put(TRUSTED_PACKAGES, "com.oleg.customer.costs.data");
 
         return containerFactory(properties);
     }
