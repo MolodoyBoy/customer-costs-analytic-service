@@ -44,4 +44,4 @@ oleg:
                 id: costs-category
                 topic: public.costs-category.v1
                 group:
-                    id: analytics.customer-category.v1
+                    id: analytics.costs-category.v1
