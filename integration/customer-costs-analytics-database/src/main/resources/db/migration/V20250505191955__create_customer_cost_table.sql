@@ -1,5 +1,5 @@
 CREATE TABLE customer_costs(
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     amount NUMERIC NOT NULL,
     user_id INTEGER NOT NULL,
     description VARCHAR NOT NULL,

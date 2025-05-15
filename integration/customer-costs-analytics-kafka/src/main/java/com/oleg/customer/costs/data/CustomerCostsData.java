@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record CustomerCostsData(
+    int id,
     int userId,
     int categoryId,
     BigDecimal amount,

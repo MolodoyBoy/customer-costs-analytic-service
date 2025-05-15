@@ -42,6 +42,7 @@ class CustomerCostsListener {
 
     private CreateCustomerCostsCommand convert(CustomerCostsData data) {
         return new CreateCustomerCostsCommand(
+            data.id(),
             data.userId(),
             data.categoryId(),
             data.amount(),
