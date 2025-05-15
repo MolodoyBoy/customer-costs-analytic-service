@@ -47,10 +47,17 @@ public class SecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(sm -> sm.sessionCreationPolicy(STATELESS))
             .authorizeHttpRequests(auth ->
-                auth.anyRequest().authenticated()
+                auth.requestMatchers(
+                    "/v3/api-docs/**",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/swagger-ui.html/**"
+                ).permitAll()
+                    .anyRequest().authenticated()
             )
             .oauth2ResourceServer(r -> r
-                .jwt(jwtConfigurer -> jwtConfigurer
+                .jwt(jwtConfigurer ->
+                    jwtConfigurer
                     .decoder(jwtDecoder)
                     .jwtAuthenticationConverter(jwtAuthenticationConverter)
                 )
