@@ -23,7 +23,7 @@ class CostCategoryListener {
 
     @KafkaListener(
         clientIdPrefix = "${oleg.kafka.costs-category.id}",
-        groupId = "${oleg.kafka.costs-category.consumer.group.id}",
+        groupId = "${oleg.kafka.costs-category.group.id}",
         topics = "${oleg.kafka.costs-category.topic}",
         errorHandler = "kafkaListenerErrorHandler",
         batch = "true",

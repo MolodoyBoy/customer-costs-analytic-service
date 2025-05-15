@@ -24,6 +24,7 @@ dependencies {
     implementation(libs.springOauth2)
     implementation(libs.springBootWeb)
     implementation(libs.springBootJdbc)
+    implementation(libs.bundles.swagger)
     implementation(libs.springBootStarter)
 }
 

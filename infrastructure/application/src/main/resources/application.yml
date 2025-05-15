@@ -4,6 +4,8 @@ server:
     max-http-request-header-size: 2MB
 
 spring:
+    profiles:
+        active: local
     mvc:
         pathmatch:
             matching-strategy: ant_path_matcher
@@ -11,9 +13,9 @@ spring:
         name: 'customer-costs-analytic-service'
     datasource:
         name: customer-costs-analytics
-        username: ${DB_USER}
-        password: ${DB_PASSWORD}
-        url: 'jdbc:postgresql://customer-costs-analytics-pg:5432/customer-costs-analytics'
+        username: ${oleg.database.username}
+        password: ${oleg.database.password}
+        url: 'jdbc:postgresql://${oleg.database.host}:5432/customer-costs-analytics'
         hikari:
             maximum-pool-size: 40
             connection-timeout: 2000
@@ -22,7 +24,7 @@ spring:
             auto-offset-reset: earliest
             max-poll-records: 100
 
-        bootstrap-servers: customer-costs-kafka:9092
+        bootstrap-servers: ${oleg.kafka.host}:9092
     flyway:
         out-of-order: true
         clean-disabled: true
@@ -39,15 +41,20 @@ springdoc:
     swagger-ui:
         path: /swagger-ui.html
 oleg:
+    database:
+        username: dev
+        password: dev
+        host: localhost
     kafka:
+        host: localhost
         customer-costs:
             id: customer-costs
             topic: public.customer-costs.v1
             consumer:
                 group:
                     id: analytics.customer-costs.v1
-            costs-category:
-                id: costs-category
-                topic: public.costs-category.v1
-                group:
-                    id: analytics.costs-category.v1
+        costs-category:
+            id: costs-category
+            topic: public.costs-category.v1
+            group:
+                id: analytics.costs-category.v1
