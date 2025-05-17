@@ -14,9 +14,9 @@ springBoot {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":infrastructure:rest-api"))
+    implementation(project(":customer-costs-analytics-reload"))
     implementation(project(":infrastructure:rest-api:ccas-openapi"))
     implementation(project(":integration:customer-costs-analytics-kafka"))
-    implementation(project(":integration:customer-costs-analytics-reload"))
     implementation(project(":integration:customer-costs-analytics-database"))
 
     implementation(libs.springKafka)
