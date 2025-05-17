@@ -35,7 +35,9 @@ public class CustomerCostsRecordMapper implements ToRecordMapper<CreateCustomerC
     public Record toRecord(CreateCustomerCostsCommand value) {
         Record rc = dslContext.newRecord(CUSTOMER_COSTS);
 
-        rc.set(CUSTOMER_COSTS.ID, value.id());
+        if (value.id() != -1) {
+            rc.set(CUSTOMER_COSTS.ID, value.id());
+        }
         rc.set(CUSTOMER_COSTS.AMOUNT, value.amount());
         rc.set(CUSTOMER_COSTS.USER_ID, value.userId());
         rc.set(CUSTOMER_COSTS.CREATED_AT, value.createdAt());
