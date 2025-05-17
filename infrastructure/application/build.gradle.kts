@@ -18,6 +18,7 @@ dependencies {
     implementation(project(":infrastructure:rest-api:ccas-openapi"))
     implementation(project(":integration:customer-costs-analytics-kafka"))
     implementation(project(":integration:customer-costs-analytics-database"))
+    implementation(project(":integration:customer-costs-analytics-redis"))
 
     implementation(libs.springKafka)
     implementation(libs.bundles.jooq)

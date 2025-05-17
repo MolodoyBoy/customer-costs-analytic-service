@@ -41,6 +41,7 @@ dependencyResolutionManagement {
             library("springBootStarter", "org.springframework.boot", "spring-boot-starter").withoutVersion()
             library("springKafka", "org.springframework.kafka", "spring-kafka").withoutVersion()
             library("javax", "javax.annotation:javax.annotation-api:1.3.2")
+            library("springRedis", "org.springframework.boot", "spring-boot-starter-data-redis").withoutVersion()
 
             library("jooqCodegen", "org.jooq:jooq-codegen:3.19.9")
             library("jooq.core", "org.jooq:jooq:3.19.9")
@@ -107,3 +108,4 @@ include("infrastructure:application")
 include("infrastructure:rest-api:ccas-openapi")
 include("integration:customer-costs-analytics-kafka")
 include("integration:customer-costs-analytics-database")
+include("integration:customer-costs-analytics-redis")
