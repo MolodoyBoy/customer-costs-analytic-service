@@ -27,6 +27,7 @@ dependencies {
     implementation(libs.springBootJdbc)
     implementation(libs.bundles.swagger)
     implementation(libs.springBootStarter)
+    implementation(libs.springRedis)
 }
 
 val dockerHubUsername: String by project
