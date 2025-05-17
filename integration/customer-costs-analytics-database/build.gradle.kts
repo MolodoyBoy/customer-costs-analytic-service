@@ -29,7 +29,7 @@ buildscript {
 
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":customer-costs-analytics-reload"))
+    implementation(project(":reload"))
 
     implementation(libs.flywayCore)
     implementation(libs.postrgesql)

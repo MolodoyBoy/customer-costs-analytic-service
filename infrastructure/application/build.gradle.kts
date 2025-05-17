@@ -13,8 +13,8 @@ springBoot {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":reload"))
     implementation(project(":infrastructure:rest-api"))
-    implementation(project(":customer-costs-analytics-reload"))
     implementation(project(":infrastructure:rest-api:ccas-openapi"))
     implementation(project(":integration:customer-costs-analytics-kafka"))
     implementation(project(":integration:customer-costs-analytics-database"))

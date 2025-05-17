@@ -98,11 +98,11 @@ dependencyResolutionManagement {
 }
 
 include("domain")
+include("reload")
 include("integration")
 include("infrastructure")
 include("infrastructure:rest-api")
 include("infrastructure:application")
-include("customer-costs-analytics-reload")
 
 include("infrastructure:rest-api:ccas-openapi")
 include("integration:customer-costs-analytics-kafka")
