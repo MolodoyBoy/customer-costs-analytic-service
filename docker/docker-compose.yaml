@@ -58,7 +58,7 @@ services:
         ports:
             - '5432:5432'
         volumes:
-            - analytics_postgres_data:/postgres
+            - analytics_postgres_data:/var/lib/postgresql/data
 
     customer-costs-pg:
         image: 'postgres:15.0'
@@ -70,7 +70,7 @@ services:
         ports:
             - '5433:5432'
         volumes:
-            - costs_postgres_data:/postgres
+            - costs_postgres_data:/var/lib/postgresql/data
 
     customer-costs-generator:
         image: 'molodoyboy777/customer-costs-generator:304e92773dd2c0f85a7697a3b9fc22214e02e00e'
@@ -91,6 +91,10 @@ services:
             - OLEG_DATABASE_HOST=customer-costs-analytics-pg
         ports:
             - '8080:8080'
+    customer-costs-analytics-redis:
+        image: redis
+        ports:
+            - "6379:6379"
 volumes:
     kafka_data:
     zookeeper_data:
