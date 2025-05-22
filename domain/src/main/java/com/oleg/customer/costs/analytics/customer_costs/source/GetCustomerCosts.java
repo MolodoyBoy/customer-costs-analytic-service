@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface GetCustomerCosts {
 
+    List<CustomerCostsQuery> getForPeriod(int periodCostsAnalyticsId);
+
     List<CustomerCostsQuery> getForCategory(Paginator paginator, int categoryCostsAnalyticsId);
 }

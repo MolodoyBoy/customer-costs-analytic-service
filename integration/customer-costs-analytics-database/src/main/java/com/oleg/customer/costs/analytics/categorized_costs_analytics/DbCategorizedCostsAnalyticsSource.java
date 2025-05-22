@@ -123,7 +123,11 @@ class DbCategorizedCostsAnalyticsSource implements AdminCategorizedCostsAnalytic
         if (keys.isEmpty()) return Map.of();
         return dslContext.insertInto(CATEGORIZED_COSTS_ANALYTICS)
             .set(categorizedCostAnalyticsCreateCommandMapper.toRecords(keys))
-            .returning(CATEGORIZED_COSTS_ANALYTICS.ID)
+            .returning(
+                CATEGORIZED_COSTS_ANALYTICS.ID,
+                CATEGORIZED_COSTS_ANALYTICS.CATEGORY_ID,
+                CATEGORIZED_COSTS_ANALYTICS.PERIOD_COST_ANALYTICS_ID
+            )
             .fetchMap(categorizedCostAnalyticsCreateCommandMapper, categorizedCostsAnalyticsMapper);
     }
 }

@@ -1,5 +1,5 @@
 server:
-    port: 8080
+    port: 8081
     shutdown: graceful
     max-http-request-header-size: 2MB
 
@@ -39,13 +39,15 @@ spring:
                     secret: "s3cr3tS!mmetr1cK3yForJWTs"
     data:
         redis:
-            host: localhost
+            host: ${oleg.redis.host}
             port: 6379
 
 springdoc:
     swagger-ui:
         path: /swagger-ui.html
 oleg:
+    redis:
+        host: localhost
     database:
         username: dev
         password: dev

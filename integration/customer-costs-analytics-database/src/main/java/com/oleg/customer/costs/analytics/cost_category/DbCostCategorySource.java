@@ -33,7 +33,9 @@ public class DbCostCategorySource implements AdminCustomerCostSource {
 
         return dslContext.insertInto(CUSTOMER_COSTS_CATEGORY)
             .set(records)
-            .onConflictDoNothing()
+            .onConflict(CUSTOMER_COSTS_CATEGORY.ID)
+            .doUpdate()
+            .setAllToExcluded()
             .execute();
     }
 }

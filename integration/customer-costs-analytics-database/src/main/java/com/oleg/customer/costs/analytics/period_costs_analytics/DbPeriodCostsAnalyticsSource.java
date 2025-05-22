@@ -102,7 +102,11 @@ class DbPeriodCostsAnalyticsSource implements AdminPeriodCostsAnalyticsSource, G
         if (keys.isEmpty()) return Map.of();
         return dslContext.insertInto(PERIOD_COSTS_ANALYTICS)
             .set(periodCostAnalyticsCreateCommandMapper.toRecords(keys))
-            .returning(PERIOD_COSTS_ANALYTICS.ID)
+            .returning(
+                PERIOD_COSTS_ANALYTICS.ID,
+                PERIOD_COSTS_ANALYTICS.PERIOD,
+                PERIOD_COSTS_ANALYTICS.USER_ID
+            )
             .fetchMap(periodCostAnalyticsCreateCommandMapper, periodCostsAnalyticsMapper);
     }
 }

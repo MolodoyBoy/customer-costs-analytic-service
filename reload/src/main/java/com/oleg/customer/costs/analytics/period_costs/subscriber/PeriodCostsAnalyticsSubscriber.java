@@ -1,6 +1,7 @@
 package com.oleg.customer.costs.analytics.period_costs.subscriber;
 
 import com.oleg.customer.costs.analytics.customer_costs.entity.CustomerCosts;
+import com.oleg.customer.costs.analytics.customer_costs.source.AdminCustomerCostsSource;
 import com.oleg.customer.costs.analytics.period_costs.entity.PeriodCostsAnalytics;
 import com.oleg.customer.costs.analytics.period_costs.command.PeriodCostAnalyticsCreateCommand;
 import com.oleg.customer.costs.analytics.core.Message;
@@ -31,11 +32,14 @@ class PeriodCostsAnalyticsSubscriber implements Subscriber {
     private static final Logger logger = getLogger(PeriodCostsAnalyticsSubscriber.class);
 
     private final Publisher publisher;
+    private final AdminCustomerCostsSource adminCustomerCostsSource;
     private final AdminPeriodCostsAnalyticsSource adminPeriodCostsAnalyticsSource;
 
     PeriodCostsAnalyticsSubscriber(@Lazy Publisher publisher,
+                                   AdminCustomerCostsSource adminCustomerCostsSource,
                                    AdminPeriodCostsAnalyticsSource adminPeriodCostsAnalyticsSource) {
         this.publisher = publisher;
+        this.adminCustomerCostsSource = adminCustomerCostsSource;
         this.adminPeriodCostsAnalyticsSource = adminPeriodCostsAnalyticsSource;
     }
 
@@ -62,6 +66,8 @@ class PeriodCostsAnalyticsSubscriber implements Subscriber {
                 "Period costs analytics updated {}.",
                 adminPeriodCostsAnalyticsSource.update(forUpdate.values())
             );
+
+            adminCustomerCostsSource.bindCustomerCostsByPeriod(message.customerCosts());
 
             publisher.publishMessage(
                 new CategorizedCostsAnalyticsMessage(message.customerCosts(), forUpdate)

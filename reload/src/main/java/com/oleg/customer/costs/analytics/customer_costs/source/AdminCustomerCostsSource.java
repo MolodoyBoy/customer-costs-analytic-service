@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface AdminCustomerCostsSource {
 
+    void bindCustomerCostsByPeriod(List<CustomerCosts> customerCosts);
+
     void bindCustomerCostsByCategory(List<CustomerCosts> customerCosts);
 
     List<CustomerCosts> insert(Collection<CreateCustomerCostsCommand> commands);

@@ -12,6 +12,7 @@ import java.util.Collection;
 
 import org.jooq.Condition;
 import org.jooq.Field;
+import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.PlainSQL;
 import org.jooq.QueryPart;
@@ -54,7 +55,7 @@ public class CustomerCosts extends TableImpl<Record> {
     /**
      * The column <code>public.customer_costs.id</code>.
      */
-    public final TableField<Record, Integer> ID = createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<Record, Integer> ID = createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>public.customer_costs.amount</code>.
@@ -113,6 +114,11 @@ public class CustomerCosts extends TableImpl<Record> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : Public.PUBLIC;
+    }
+
+    @Override
+    public Identity<Record, Integer> getIdentity() {
+        return (Identity<Record, Integer>) super.getIdentity();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.oleg.customer.costs.analytics.period_costs.usecase;
 
 import com.oleg.customer.costs.analytics.categorized_costs.source.GetCategorizedCostsAnalyticsSource;
 import com.oleg.customer.costs.analytics.common.exception.NotFoundException;
+import com.oleg.customer.costs.analytics.customer_costs.source.GetCustomerCosts;
 import com.oleg.customer.costs.analytics.period_costs.source.GetAnalyticPeriodSource;
 import com.oleg.customer.costs.analytics.period_costs.source.GetPeriodCostsAnalyticsSource;
 import com.oleg.customer.costs.analytics.period_costs.query.AnalyticPeriodQuery;
@@ -20,15 +21,18 @@ public class PeriodCostsAnalyticsUseCase {
     private static final int CATEGORIZED_COSTS_ANALYTICS_LIMIT = 5;
 
     private final UserContext userContext;
+    private final GetCustomerCosts getCustomerCosts;
     private final GetAnalyticPeriodSource getAnalyticPeriodSource;
     private final GetPeriodCostsAnalyticsSource getPeriodCostsAnalyticsSource;
     private final GetCategorizedCostsAnalyticsSource getCategorizedCostsAnalyticsSource;
 
     public PeriodCostsAnalyticsUseCase(UserContext userContext,
+                                       GetCustomerCosts getCustomerCosts,
                                        GetAnalyticPeriodSource getAnalyticPeriodSource,
                                        GetPeriodCostsAnalyticsSource getPeriodCostsAnalyticsSource,
                                        GetCategorizedCostsAnalyticsSource getCategorizedCostsAnalyticsSource) {
         this.userContext = userContext;
+        this.getCustomerCosts = getCustomerCosts;
         this.getAnalyticPeriodSource = getAnalyticPeriodSource;
         this.getPeriodCostsAnalyticsSource = getPeriodCostsAnalyticsSource;
         this.getCategorizedCostsAnalyticsSource = getCategorizedCostsAnalyticsSource;
@@ -54,9 +58,10 @@ public class PeriodCostsAnalyticsUseCase {
             limit = CATEGORIZED_COSTS_ANALYTICS_LIMIT;
         }
 
+        var forPeriod = getCustomerCosts.getForPeriod(id);
         var columns = Set.of(ID, AMOUNT, PERCENT, TRANSACTIONS_COUNT, CATEGORY_DESCRIPTION);
         var categorizedCostsAnalytics = getCategorizedCostsAnalyticsSource.getForPeriod(limit, id, columns);
 
-        return new PeriodCostsAnalyticsWithCategories(periodCostsAnalytics, categorizedCostsAnalytics);
+        return new PeriodCostsAnalyticsWithCategories(forPeriod, periodCostsAnalytics, categorizedCostsAnalytics);
     }
 }

@@ -5,6 +5,7 @@ import com.oleg.customer.costs.analytics.period_costs.entity.PeriodCostsAnalytic
 import com.oleg.customer.costs.analytics.period_costs.snapshot.PeriodCostsAnalyticsSnapshot;
 import com.oleg.customer.costs.analytics.categorized_costs.snapshot.CategorizedCostsAnalyticsSnapshot;
 
+import java.math.MathContext;
 import java.util.Objects;
 import java.math.BigDecimal;
 
@@ -62,8 +63,8 @@ public class CategorizedCostsAnalytics {
             if (totalAmount == null || totalAmount.equals(ZERO)) {
                 throw new IllegalArgumentException("Total cant be null or zero!");
             }
-
-            percent = amount.multiply(HUNDRED_PERCENT).subtract(totalAmount);
+            BigDecimal delimiter = totalAmount.divide(HUNDRED_PERCENT, MathContext.DECIMAL64);
+            percent = amount.divide(delimiter, MathContext.DECIMAL64);
         }
     }
 

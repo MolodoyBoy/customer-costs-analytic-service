@@ -50,6 +50,7 @@ public class PeriodCostsAnalytics {
     }
 
     public void addPrevious(PeriodCostsAnalytics previousAnalytic) {
+        if (previousAnalytic == null) return;
         if (amount == null) {
             differenceFromPrevious = previousAnalytic.amount;
         }

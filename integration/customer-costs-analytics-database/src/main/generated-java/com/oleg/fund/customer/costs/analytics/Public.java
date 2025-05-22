@@ -7,6 +7,7 @@ package com.oleg.fund.customer.costs.analytics;
 import com.oleg.fund.customer.costs.analytics.tables.CategorizedCostsAnalytics;
 import com.oleg.fund.customer.costs.analytics.tables.CustomerCosts;
 import com.oleg.fund.customer.costs.analytics.tables.CustomerCostsByCategory;
+import com.oleg.fund.customer.costs.analytics.tables.CustomerCostsByPeriod;
 import com.oleg.fund.customer.costs.analytics.tables.CustomerCostsCategory;
 import com.oleg.fund.customer.costs.analytics.tables.PeriodCostsAnalytics;
 
@@ -47,6 +48,11 @@ public class Public extends SchemaImpl {
     public final CustomerCostsByCategory CUSTOMER_COSTS_BY_CATEGORY = CustomerCostsByCategory.CUSTOMER_COSTS_BY_CATEGORY;
 
     /**
+     * The table <code>public.customer_costs_by_period</code>.
+     */
+    public final CustomerCostsByPeriod CUSTOMER_COSTS_BY_PERIOD = CustomerCostsByPeriod.CUSTOMER_COSTS_BY_PERIOD;
+
+    /**
      * The table <code>public.customer_costs_category</code>.
      */
     public final CustomerCostsCategory CUSTOMER_COSTS_CATEGORY = CustomerCostsCategory.CUSTOMER_COSTS_CATEGORY;
@@ -75,6 +81,7 @@ public class Public extends SchemaImpl {
             CategorizedCostsAnalytics.CATEGORIZED_COSTS_ANALYTICS,
             CustomerCosts.CUSTOMER_COSTS,
             CustomerCostsByCategory.CUSTOMER_COSTS_BY_CATEGORY,
+            CustomerCostsByPeriod.CUSTOMER_COSTS_BY_PERIOD,
             CustomerCostsCategory.CUSTOMER_COSTS_CATEGORY,
             PeriodCostsAnalytics.PERIOD_COSTS_ANALYTICS
         );

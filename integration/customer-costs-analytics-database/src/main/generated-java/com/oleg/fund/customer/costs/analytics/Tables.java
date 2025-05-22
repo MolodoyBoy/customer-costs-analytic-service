@@ -7,6 +7,7 @@ package com.oleg.fund.customer.costs.analytics;
 import com.oleg.fund.customer.costs.analytics.tables.CategorizedCostsAnalytics;
 import com.oleg.fund.customer.costs.analytics.tables.CustomerCosts;
 import com.oleg.fund.customer.costs.analytics.tables.CustomerCostsByCategory;
+import com.oleg.fund.customer.costs.analytics.tables.CustomerCostsByPeriod;
 import com.oleg.fund.customer.costs.analytics.tables.CustomerCostsCategory;
 import com.oleg.fund.customer.costs.analytics.tables.PeriodCostsAnalytics;
 
@@ -31,6 +32,11 @@ public class Tables {
      * The table <code>public.customer_costs_by_category</code>.
      */
     public static final CustomerCostsByCategory CUSTOMER_COSTS_BY_CATEGORY = CustomerCostsByCategory.CUSTOMER_COSTS_BY_CATEGORY;
+
+    /**
+     * The table <code>public.customer_costs_by_period</code>.
+     */
+    public static final CustomerCostsByPeriod CUSTOMER_COSTS_BY_PERIOD = CustomerCostsByPeriod.CUSTOMER_COSTS_BY_PERIOD;
 
     /**
      * The table <code>public.customer_costs_category</code>.
